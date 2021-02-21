@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  app:
+    build: ./
+    container_name: app
+    volumes:
+      - ../application:/var/www
+      - ../application/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ../application/.env.example:/var/www/.env
+    networks:
+      - app_net
+
+  server:
+    image: nginx:stable
+    container_name: server
+    ports:
+      - ${PORT}
+    volumes:
+      - ../nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ../application:/var/www
+    networks:
+      - app_net
+
+networks:
+   app_net:
+     driver: bridge
