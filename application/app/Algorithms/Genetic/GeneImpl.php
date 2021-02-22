@@ -23,4 +23,12 @@ class GeneImpl implements Gene
     {
         return $this->identifier;
     }
+
+    public function getState(): array
+    {
+        return [
+            'name' => $this->name,
+            'identifier' => $this->identifier
+        ];
+    }
 }

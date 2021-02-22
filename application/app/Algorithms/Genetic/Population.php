@@ -10,4 +10,6 @@ interface Population
     public function create(): void;
     public function crossover(): void;
     public function selection(): void;
+    public function setState(): void;
+    public function getState(): array;
 }

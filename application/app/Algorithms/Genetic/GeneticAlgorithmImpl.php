@@ -20,15 +20,19 @@ class GeneticAlgorithmImpl implements GeneticAlgorithm
         $this->numberGenerations = $geneticData->getNumberGenerations();
         $this->population->init($geneticData);
         $this->population->create();
+        $this->population->setState();
     }
 
-    public function run(): void
+    public function run(): array
     {
         $i = 0;
         while ($i <= $this->numberGenerations) {
             $this->population->crossover();
             $this->population->selection();
+            $this->population->setState();
             $i++;
         }
+
+        return $this->population->getState();
     }
 }

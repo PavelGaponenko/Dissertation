@@ -7,11 +7,14 @@ use App\Dto\GeneticData;
 class PopulationImpl implements Population
 {
     private array $chromosomes;
+    private array $parents;
+    private array $childs;
     private array $graph;
     private array $tops;
     private int $populationSize;
     private int $percentageMutations;
     private array $startingTop;
+    private array $state;
 
     public function init(GeneticData $geneticData): void
     {
@@ -39,5 +42,20 @@ class PopulationImpl implements Population
     public function selection(): void
     {
         // TODO: Implement selection() method.
+    }
+
+    public function setState(): void
+    {
+        $chromosomes = [];
+        foreach ($this->chromosomes as $chromosome) {
+            $chromosome->calculateValue($this->graph);
+            $chromosomes['chromosomes'][] = $chromosome->getState() . " = " . $chromosome->getValue();
+        }
+        $this->state[] = $chromosomes;
+    }
+
+    public function getState(): array
+    {
+        return $this->state;
     }
 }

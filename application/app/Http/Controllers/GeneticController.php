@@ -13,6 +13,7 @@ class GeneticController extends Controller
         $data = $request->input('genetic');
         $geneticData = new GeneticData($data);
         $algorithm->init($geneticData);
-        $algorithm->run();
+        $state = $algorithm->run();
+        return view('genetic', ['state'=> $state]);
     }
 }
