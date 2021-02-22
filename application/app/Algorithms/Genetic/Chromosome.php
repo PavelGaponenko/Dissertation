@@ -4,6 +4,7 @@ namespace App\Algorithms\Genetic;
 
 interface Chromosome
 {
-    public function getValue();
+    public function create(array $startingTop, array $tops): void;
+    public function getGenes();
     public function mutate(): void;
 }
