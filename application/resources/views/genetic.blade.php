@@ -17,8 +17,13 @@
                 <p>{{$chromosome}}</p>
             @endforeach
             <p>Родители:</p>
-
+            @foreach($population['parents'] as $parent)
+                <p>{{$parent}}</p>
+            @endforeach
             <p>Потомки (в результате кроссовера):</p>
+            @foreach($population['childs'] as $child)
+                <p>{{$child}}</p>
+            @endforeach
         @endforeach
     </div>
 </body>

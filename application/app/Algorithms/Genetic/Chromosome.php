@@ -9,4 +9,6 @@ interface Chromosome
     public function calculateValue(array $graph): void;
     public function getValue(): int;
     public function getState(): string;
+    public function getGenes(): array;
+    public function setGenes(array $genes): void;
 }

@@ -35,8 +35,10 @@ class ChromosomeImpl implements Chromosome
         $begin = $this->genes[0];
         for ($i = 1; $i < count($this->genes); $i++) {
             $end = $this->genes[$i];
-            $this->value += $graph[$begin->getIdentifier()][$end->getIdentifier()];
-            $begin = $end;
+            if ($begin instanceof Gene && $end instanceof Gene) {
+                $this->value += $graph[$begin->getIdentifier()][$end->getIdentifier()];
+                $begin = $end;
+            }
         }
     }
 
@@ -44,7 +46,9 @@ class ChromosomeImpl implements Chromosome
     {
         $state = "";
         foreach ($this->genes as $gene) {
-            $state .=  $gene->getState()['identifier'];
+            if ($gene instanceof Gene) {
+                $state .=  $gene->getState()['identifier'];
+            }
         }
 
         return $state;
@@ -55,5 +59,15 @@ class ChromosomeImpl implements Chromosome
         $gene = app()->make(Gene::class);
         $gene->create($startingTop['name'], $startingTop['identifier']);
         $this->genes[] = $gene;
+    }
+
+    public function getGenes(): array
+    {
+        return $this->genes;
+    }
+
+    public function setGenes(array $genes): void
+    {
+        $this->genes = $genes;
     }
 }
