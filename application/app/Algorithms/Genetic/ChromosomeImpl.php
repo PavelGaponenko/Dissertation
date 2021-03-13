@@ -19,9 +19,16 @@ class ChromosomeImpl implements Chromosome
         }
     }
 
-    public function mutate(): void
+    public function mutate(int $percentageMutations): void
     {
-        // TODO: Implement mutate() method.
+        $probability = rand(1, 99);
+        if ($percentageMutations > $probability) {
+            $indexes = $this->generateTwoIndexes();
+            $temp = $this->genes[$indexes['first']];
+            $this->genes[$indexes['first']] = $this->genes[$indexes['second']];
+            $this->genes[$indexes['second']] = $temp;
+            return;
+        }
     }
 
     public function getValue(): int
@@ -69,5 +76,23 @@ class ChromosomeImpl implements Chromosome
     public function setGenes(array $genes): void
     {
         $this->genes = $genes;
+    }
+
+    private function generateTwoIndexes(): array
+    {
+        $count = count($this->genes);
+        $first = rand(1, $count - 1);
+        $second = rand(1, $count - 1);
+        while (true) {
+            if ($first != $second) {
+                break;
+            }
+            $second = rand(1, $count - 1);
+        }
+
+        return [
+            'first' => $first,
+            'second' => $second
+        ];
     }
 }

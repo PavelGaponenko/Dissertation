@@ -10,7 +10,8 @@ class GeneticController extends Controller
 {
     public function genetic(Request $request, GeneticAlgorithm $algorithm)
     {
-        $data = $request->input('genetic');
+        $file = file_get_contents(__DIR__.'/data.json');
+        $data = json_decode($file, true);
         $geneticData = new GeneticData($data);
         $algorithm->init($geneticData);
         $state = $algorithm->run();

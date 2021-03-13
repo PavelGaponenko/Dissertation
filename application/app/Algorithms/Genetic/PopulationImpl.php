@@ -3,7 +3,6 @@
 namespace App\Algorithms\Genetic;
 
 use App\Dto\GeneticData;
-use function PHPUnit\Framework\assertInstanceOf;
 
 class PopulationImpl implements Population
 {
@@ -67,23 +66,18 @@ class PopulationImpl implements Population
 
         foreach ($this->tops as $top) {
             if ($this->findMatch($firstChild, $top)) {
-                $gene = app()->make(Gene::class);
-                $gene->setName($top['name']);
-                $gene->setIdentifier($top['identifier']);
-                $firstChild[] = $gene;
+                $firstChild[] = $this->generateGene($top);
             }
             if ($this->findMatch($secondChild, $top)) {
-                $gene = app()->make(Gene::class);
-                $gene->setName($top['name']);
-                $gene->setIdentifier($top['identifier']);
-                $secondChild[] = $gene;
+                $secondChild[] = $this->generateGene($top);
             }
         }
 
-        $this->childs['first'] = app()->make(Chromosome::class);
-        $this->childs['first']->setGenes($firstChild);
-        $this->childs['second'] = app()->make(Chromosome::class);
-        $this->childs['second']->setGenes($secondChild);
+        $this->childs['first'] = $this->generateChromosome($firstChild);
+        $this->childs['second'] = $this->generateChromosome($secondChild);
+
+        $this->childs['first']->mutate($this->percentageMutations);
+        $this->childs['second']->mutate($this->percentageMutations);
     }
 
     public function selection(): void
@@ -131,9 +125,9 @@ class PopulationImpl implements Population
     private function setParent(): void
     {
         $countChromosomes = count($this->chromosomes);
-        $firstIndex = rand(1, $countChromosomes - 1);
+        $firstIndex = rand(0, $countChromosomes - 1);
         while (true) {
-            $secondIndex = rand(1, $countChromosomes - 1);
+            $secondIndex = rand(0, $countChromosomes - 1);
             if ($firstIndex != $secondIndex) {
                 break;
             }
@@ -147,7 +141,7 @@ class PopulationImpl implements Population
     {
         $countChromosomes = count($this->chromosomes);
 
-        return rand(1, $countChromosomes - 1);
+        return rand(0, $countChromosomes - 1);
     }
 
     private function findMatch(array $chromosome, array $top): bool
@@ -160,5 +154,22 @@ class PopulationImpl implements Population
         }
 
         return $result;
+    }
+
+    private function generateGene(array $top): Gene
+    {
+        $gene = app()->make(Gene::class);
+        $gene->setName($top['name']);
+        $gene->setIdentifier($top['identifier']);
+
+        return $gene;
+    }
+
+    private function generateChromosome(array $genes): Chromosome
+    {
+        $chromosome = app()->make(Chromosome::class);
+        $chromosome->setGenes($genes);
+
+        return $chromosome;
     }
 }
