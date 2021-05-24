@@ -14,7 +14,8 @@ class GeneticController extends Controller
         $data = json_decode($file, true);
         $geneticData = new GeneticData($data);
         $algorithm->init($geneticData);
-        $state = $algorithm->run();
-        return view('genetic', ['state'=> $state]);
+        $algorithm->run();
+        $result = $algorithm->getResult();
+        return view('genetic', ['result'=> $result]);
     }
 }

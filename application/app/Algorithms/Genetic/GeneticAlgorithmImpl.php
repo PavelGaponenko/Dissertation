@@ -22,7 +22,7 @@ class GeneticAlgorithmImpl implements GeneticAlgorithm
         $this->population->create();
     }
 
-    public function run(): array
+    public function run(): void
     {
         $i = 0;
         while ($i < $this->numberGenerations) {
@@ -31,7 +31,18 @@ class GeneticAlgorithmImpl implements GeneticAlgorithm
             $this->population->selection();
             $i++;
         }
+    }
 
-        return $this->population->getState();
+    public function getResult(): array
+    {
+        $result = [
+            'best' => '',
+        ];
+        $chromosome = $this->population->getBestChromosome();
+        foreach ($chromosome->getGenes() as $gene) {
+            $result['best'] .= $gene->getIdentifier();
+        }
+
+        return $result;
     }
 }

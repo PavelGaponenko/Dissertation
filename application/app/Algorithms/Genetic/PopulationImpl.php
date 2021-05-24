@@ -97,6 +97,12 @@ class PopulationImpl implements Population
         $this->chromosomes = array_slice($valuesChromosomes, 0, $this->populationSize);
     }
 
+
+    public function getBestChromosome(): Chromosome
+    {
+        return $this->chromosomes[0];
+    }
+
     public function setState(): void
     {
         $chromosomes = [];

@@ -22,6 +22,20 @@ services:
     networks:
       - app_net
 
+  db_postgres:
+    image: postgres:13.1
+    container_name: db_postgres
+    volumes:
+      - ../volumes/db/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_DATABASE}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - ${DB_PORT}
+    networks:
+      - app_net
+
 networks:
    app_net:
      driver: bridge
