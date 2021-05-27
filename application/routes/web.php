@@ -12,9 +12,14 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->get('/', function (){
+    return view('app');
 });
+
+$router->post('/login', 'AuthController@login');
+$router->get('/logout', 'AuthController@logout');
+
+$router->get('/create', 'OrderController@create');
+$router->get('/orders', 'OrderController@orders');
 
 $router->get('/genetic', 'GeneticController@genetic');
