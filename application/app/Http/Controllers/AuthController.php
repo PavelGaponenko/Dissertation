@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use http\Cookie;
+use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class AuthController
 {
@@ -13,10 +12,11 @@ class AuthController
         try {
             $login = $request->input('login');
             $pass = $request->input('pass');
-            //$resource = $this->authService->login($login, $pass);
-            $token = 'token'; //$this->tokenService->getToken($resource);
-
-            $request->cookie('token', $token);
+            $userData = ['test'=> 'data'];//$this->authService->login($login, $pass);
+            $key = 'token_key';
+            $payload = ["data" => $userData];
+            $jwt = JWT::encode($payload, $key);
+            setcookie('token', $jwt, strtotime("+30 days"));
 
             return redirect('/orders');
         } catch (\Exception $e) {
@@ -24,9 +24,9 @@ class AuthController
         }
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        $request->cookie('token', '');
+        setcookie('token', '');
         return redirect('/');
     }
 }

@@ -15,10 +15,8 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-//        if (!$request->hasHeader('Authorization')) {
-//            return $next($request);
-//        }
-        $token = $request->get('token');
+
+        $token = $_COOKIE['token'] ?? '';
         if ($token !== '') {
             return $next($request);
         }
