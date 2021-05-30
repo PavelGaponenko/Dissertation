@@ -56,10 +56,9 @@
 
 <main class="form-signin text-center">
     <form action="/login" method="POST" >
-        <img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
         <h1 class="h3 mb-3 fw-normal">Вход в систему</h1>
 
-        <div class="form-floating">
+        <div class="form-floating mb-3">
             <input type="text" class="form-control" id="login" placeholder="Логин">
             <label for="login">Логин</label>
         </div>

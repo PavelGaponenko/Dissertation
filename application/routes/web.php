@@ -21,5 +21,10 @@ $router->get('/logout', 'AuthController@logout');
 
 $router->get('/create', 'OrderController@create');
 $router->get('/orders', 'OrderController@orders');
+$router->post('/add', 'OrderController@addOrder');
 
 $router->get('/genetic', 'GeneticController@genetic');
+
+$router->get('/types', 'TypesJobsController@showTypes');
+$router->post('/addType', 'TypesJobsController@addType');
+$router->get('/delType', 'TypesJobsController@delType');

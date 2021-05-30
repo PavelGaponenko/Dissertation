@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd; margin-bottom: 50px">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark" style=" margin-bottom: 50px; height: 80px">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Панель управления</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,8 +15,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/genetic">Рассчет маршрута</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/types">Типы работ</a>
+                </li>
             </ul>
-            <div class="d-flex">
+            <div class="d-flex" style="float: right">
                 <a class="btn btn-outline-success" href="/logout">Выйти</a>
             </div>
         </div>
